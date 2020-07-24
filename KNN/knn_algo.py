@@ -36,4 +36,58 @@ pred = knn.predict(X_test)
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import cross_val_score
 print(confusion_matrix(y_test, pred))
+print(classification_report(y_test, pred))
+
+
+accuracy_rate = []
+for i in range(1,40):
+    knn = KNeighborsClassifier(n_neighbors=i)
+    score = cross_val_score(knn, df_feat, df['TARGET CLASS'], cv=10)
+    accuracy_rate.append(score.mean())
+
+
+error_rate = []
+for i in range(1,40):
+    knn = KNeighborsClassifier(n_neighbors=i)
+    score = cross_val_score(knn, df_feat, df['TARGET CLASS'], cv=10)
+    error_rate.append(1-score.mean())
+
+
+# Error Rate
+plt.figure(figsize=(10,6))
+plt.plot(range(1,40), error_rate, color='blue', linestyle='dashed', marker='o', markerfacecolor='red', markersize=10)
+plt.title('Error rate vs K value')
+plt.xlabel('K')
+plt.ylabel('Error Rate')
+
+
+# Accuracy  Rate
+plt.figure(figsize=(10,6))
+plt.plot(range(1,40), accuracy_rate, color='blue', linestyle='dashed', marker='o', markerfacecolor='red', markersize=10)
+plt.title('Accuracy rate vs K value')
+plt.xlabel('K')
+plt.ylabel('Accuracy Rate')
+
+
+# First a quick comaprison to our original k=1
+knn = KNeighborsClassifier(n_neighbors=1)
+knn.fit(X_train, y_train)
+pred = knn.predict(X_test)
+print('With K=1')
+print('\n')
+print(confusion_matrix(y_test, pred))
+print('\n')
+print(classification_report(y_test, pred))
+
+
+# First a quick comaprison to our original k=23
+knn = KNeighborsClassifier(n_neighbors=23)
+knn.fit(X_train, y_train)
+pred = knn.predict(X_test)
+print('With K=1')
+print('\n')
+print(confusion_matrix(y_test, pred))
+print('\n')
+print(classification_report(y_test, pred))
+
 
