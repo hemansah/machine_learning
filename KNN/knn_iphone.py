@@ -14,7 +14,7 @@ y = df.iloc[:, 3].values
 from sklearn.preprocessing import LabelEncoder
 labelEncoder_gender = LabelEncoder()
 X[:,0] = labelEncoder_gender.fit_transform(X[:,0])
-X = np.vstack(X[:, :]).astype(np.float)
+# X = np.vstack(X[:, :]).astype(np.float)
 
 
 #Split data into training set
